@@ -59,13 +59,13 @@ export default class App extends Component {
               path="/search"
               exact
               token={user && user.token}
-              render={(routerProps) => <SearchPage {...routerProps} />}
+              render={(routerProps) => <SearchPage user={this.state.user} {...routerProps} />}
             />
             <PrivateRoute
               path="/favorites"
               exact
               token={user && user.token}
-              render={(routerProps) => <FavoritesPage {...routerProps} />}
+              render={(routerProps) => <FavoritesPage user={this.state.user} {...routerProps} />}
             />
           </Switch>
         </Router>

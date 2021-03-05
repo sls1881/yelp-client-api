@@ -18,9 +18,10 @@ export async function loginUser(email, password) {
 }
 
 //Function for getting search
-export async function getSearch(location) {
+export async function getRestaurant(location, token) {
     const response = await request.get(`${URL}/api/search?location=${location}`)
-    return response.body.businesses;
+        .set('Authorization', token)
+    return response.body;
 
 }
 
@@ -28,7 +29,7 @@ export async function getSearch(location) {
 export async function getFavorites(token) {
     const response = await request.get(`${URL}/api/favorites`)
         .set('Authorization', token)
-    return response;
+    return response.body;
 }
 
 //Function for adding favorites
@@ -40,8 +41,8 @@ export async function addFavorite(restaurant, token) {
 }
 
 //Function for deleting favorites
-export async function deleteFavorite(token, restaurant) {
-    const response = await request.delete(`${URL}/api/favorites/:id`)
+export async function deleteFavorite(id, token) {
+    const response = await request.delete(`${URL}/api/favorites/${id}`)
         .set('Authorization', token)
     return response.body;
 }
