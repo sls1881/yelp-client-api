@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { addFavorite, getFavorites, getRestaurant } from '../ApiUtils.js'
+import { addFavorite, getFavorites, getRestaurant, deleteFavorite } from '../ApiUtils.js'
 
 export default class SearchPage extends Component {
     //Initialize state
@@ -53,17 +53,17 @@ export default class SearchPage extends Component {
         })
     }
 
-    // //handleDeleteClick
-    // handleDeleteClick = async (e) => {
-    //     const id = await deleteFavorite(this.state.id, this.state.user.token)
-    //     this.setState({ id });
-    // }
+    //handleDeleteClick
+    handleDeleteClick = async (id) => {
+        await deleteFavorite(id, this.props.user.token)
+        await this.fetchFavorites();
+    }
 
     //Conditional for favorite or not
     isAFavorite = (restaurant) => {
         if (!this.props.token) return true;
         const isFav = this.state.favorites.find(favorite => favorite.yelp_id === restaurant.id);
-        return Boolean(isFav);
+        return (isFav);
     }
 
     render() {
@@ -77,8 +77,9 @@ export default class SearchPage extends Component {
                 </div>
                 <div className='restaurant-container'>
                     {
-                        this.state.restaurants.map((restaurant) =>
-                            <div key={restaurant.id}>
+                        this.state.restaurants.map((restaurant) => {
+                            const idAsAFavorite = this.isAFavorite(restaurant) && this.isAFavorite(restaurant).id;
+                            return <div key={restaurant.id}>
                                 <h3>Name: {restaurant.name}</h3>
                                 <img className='img' alt={restaurant.title} src={restaurant.image_url} />
                                 <p>Rating: {restaurant.rating}</p>
@@ -86,10 +87,11 @@ export default class SearchPage extends Component {
                                 <p>{this.isAFavorite(restaurant)
                                     ? '❤️'
                                     : <button onClick={() => this.handleFavoritesClick(restaurant)} >Favorite</button>}</p>
-                                {/* <div>
-                                    <button onClick={this.handleDeleteClick}>Remove favorite</button>
-                                </div> */}
-                            </div>)
+                                <div>
+                                    <button onClick={() => this.handleDeleteClick(idAsAFavorite)}>Remove favorite</button>
+                                </div>
+                            </div>
+                        })
                     }
                 </div>
             </div>
