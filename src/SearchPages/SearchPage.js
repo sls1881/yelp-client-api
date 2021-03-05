@@ -7,6 +7,7 @@ export default class SearchPage extends Component {
         restaurants: [],
         favorites: [],
         search: ''
+        // id: '',
     }
 
     //Components mount on load
@@ -52,6 +53,12 @@ export default class SearchPage extends Component {
         })
     }
 
+    // //handleDeleteClick
+    // handleDeleteClick = async (e) => {
+    //     const id = await deleteFavorite(this.state.id, this.state.user.token)
+    //     this.setState({ id });
+    // }
+
     //Conditional for favorite or not
     isAFavorite = (restaurant) => {
         if (!this.props.token) return true;
@@ -79,6 +86,9 @@ export default class SearchPage extends Component {
                                 <p>{this.isAFavorite(restaurant)
                                     ? '❤️'
                                     : <button onClick={() => this.handleFavoritesClick(restaurant)} >Favorite</button>}</p>
+                                {/* <div>
+                                    <button onClick={this.handleDeleteClick}>Remove favorite</button>
+                                </div> */}
                             </div>)
                     }
                 </div>

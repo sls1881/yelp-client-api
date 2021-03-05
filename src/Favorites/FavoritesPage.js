@@ -14,6 +14,8 @@ export default class Favorites extends Component {
         console.log(favorites);
 
     }
+
+
     render() {
         return (
             <div className='fav-container'>
@@ -21,7 +23,7 @@ export default class Favorites extends Component {
                 <div className='faves'>
                     {this.state.favorites.map(fav => <div className='fave'>
                         <h3>Name: {fav.name}</h3>
-                        <img alt={fav.name} src={fav.image_url} />
+                        <img className='img' alt={fav.name} src={fav.image_url} />
                         <p>Rating: {fav.rating}</p>
                         <p>Price: {fav.price}</p>
                     </div>
