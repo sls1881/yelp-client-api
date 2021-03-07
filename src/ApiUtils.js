@@ -1,7 +1,7 @@
 import request from 'superagent'
 
 //Declare variable for backend URL
-const URL = 'nameless-badlands-34836.herokuapp.com'
+const URL = 'https://nameless-badlands-34836.herokuapp.com'
 
 //Function for signing up the user
 export async function signUpUser(email, password) {
